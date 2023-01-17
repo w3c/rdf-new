@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>What&#8217;s New in RDF 1.2</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
+  <script src="./common/local-biblio.js" class="remove"></script>
+  <script src="./common/fixup.js" class="remove"></script>
+  <script class='remove'>
+    var respecConfig = {
+      localBiblio:          localBibliography,
+      specStatus:           "DNOTE",
+      edDraftURI:           "https://w3c.github.io/rdf-new/spec/",
+      noRecTrack:            true,
+      shortName:            "rdf12-new",
+
+      previousPublishDate:  "2014-02-25",
+      previousMaturity:     "NOTE",
+      prevRecShortname:     "rdf11-new",
+
+      editors:  [
+           { name: "David Wood", url: "http://about.me/david_wood",
+            company: "3 Round Stones Inc.", companyURL:
+            "http://3roundstones.com/"
+          },
+      ],
+
+      github: "https://github.com/w3c/rdf-new/",
+      group:           "rdf-star",
+      doJsonLd:     true,
+      wgPublicList: "public-rdf-star-wg"
+   };
+  </script>
+  <style type="text/css">
+    figure { text-align: center; }
+    img.graph { width: 95%; }
+    table td, table th { border: 1px solid #ddd; padding: 0.2em 0.5em; }
+  </style>
+</head>
+<body>
+
+<section id="abstract">
+
+  <p>This document provides the reader with a summary
+  of changes to RDF introduced in RDF version 1.2.
+  </p>
+</section>
+
+<section id="sotd">
+  <p>This document is intended to provide the reader with a summary
+    of changes to RDF introduced in RDF version 1.2. </p>
+
+  <section id="related" data-include="./common/related.html"></section>
+</section>
+
+<section id="section-introduction">
+
+    <h2>Introduction</h2>
+
+    <p>This document is informative in nature.  Its
+      purpose is to provide a summary of differences between RDF versions 1.1
+      and 1.2 and to introduce new additions in a very brief manner.</p>
+
+    <p>Readers new to RDF should start with the [[[RDF12-PRIMER]]] [[RDF12-PRIMER]]
+      and then move on to the specifications in which they are
+      most interested.  This document is meant to serve as a guide for those
+      already familiar with RDF 1.1 who wish to understand changes in version
+      1.2.</p>
+
+    <p>Normative specifications of RDF can be found in the
+      following documents: </p>
+    <ul>
+      <li>A document describing the basic concepts underlying RDF, as
+        well as abstract syntax ([[[RDF12-CONCEPTS]]]) [[RDF12-CONCEPTS]]</li>
+      <li>A document describing the formal model-theoretic semantics
+        of RDF ([[[RDF12-SEMANTICS]]]) [[RDF12-SEMANTICS]]</li>
+      <li>Specifications of concrete syntaxes for RDF, such as Turtle
+        [[RDF12-TURTLE]], TriG [[RDF12-TRIG]], N-Triples [[RDF12-N-TRIPLES]],
+        N-Quads [[RDF12-N-QUADS]] and JSON-LD [[JSON-LD11]].
+        RDFa [[RDFA-PRIMER]] is also a concrete syntax for RDF, but it was not defined
+        by the RDF Working Group.
+        The 2004 RDF/XML syntax was updated to be in line with the RDF 1.2
+        specifications [[RDF12-XML]]. </li>
+      <li>A document describing RDF Schema [[RDF12-SCHEMA]], which
+        provides a data-modeling vocabulary for RDF data. </li>
+    </ul>
+
+    <p>The following prefixes are used in this document:</p>
+
+    <table class="simple">
+      <caption>Prefixes and IRIs</caption>
+      <tr><th>Namespace prefix</th><th>Namespace IRI</th><th>RDF vocabulary</th></tr>
+      <tr>
+        <td>rdf</td>
+        <td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></a></td>
+        <td>The RDF built-in vocabulary [[RDF12-SCHEMA]]</td>
+      </tr>
+      <tr>
+        <td>xsd</td>
+        <td><a href="http://www.w3.org/2001/XMLSchema#"><code>http://www.w3.org/2001/XMLSchema#</code></a></td>
+        <td>The RDF-compatible XML Schema datatypes</td></tr>
+    </table>
+
+</section>
+
+<section id="section-abstract-syntax">
+
+<h2>Abstract Syntax</h2>
+
+<!--section id="identifiers">
+
+<h3>Identifiers</h3>
+
+<p>Identifiers in RDF 1.1 are now IRIs.  The following table
+summarizes specific differences.</p>
+
+<table class="simple">
+  <caption>Identifiers in RDF 1.0 and 1.1.</caption>
+  <tr>
+        <th></th>
+  <th>RDF 1.0</th>
+  <th>RDF 1.1</th>
+  </tr>
+  <tr>
+  <td>Identifiers</td>
+  <td>RDF URI References</td>
+  <td>IRIs</td>
+  </tr>
+  <tr>
+  <td>Additional characters</td>
+  <td>
+  &quot;&lt;&quot;, &quot;&gt;&quot;,
+  &quot;{&quot;, &quot;}&quot;, &quot;|&quot;, &quot;\&quot;, &quot;^&quot;,
+  &quot;`&quot;, ‘&quot;’ (double quote), and &quot; &quot; (space)
+  </td>
+  <td>None; percent-encoding must be used as described in
+        section 2.1 of [[RFC3986]]. </td>
+  </tr>
+  <tr>
+  <td>Fragment identifiers</td>
+  <td>Fragment identifiers interpreted in accordance with RDF/XML representation.
+  </td>
+  <td>Full IRIs, including possible fragment identifiers, denote a resource.
+  </td>
+  </tr>
+  <tr>
+  <td>Blank nodes</td>
+  <td>
+  RDF 1.0 makes no reference to any internal structure of blank nodes. Given two
+  blank nodes, it is possible to determine whether or not they are the same.
+  </td>
+  <td>
+  Blank node identifiers are local identifiers that are used in
+  some concrete RDF syntaxes or RDF store implementations. They are
+  always locally scoped to the file or RDF store, and are not
+  persistent or portable identifiers for blank nodes. See the section
+  in Concepts and Abstract Syntax regarding Skolemization if blank
+  nodes must be shared between implementations.
+  </td>
+  </tr>
+</table>
+
+</section -->
+
+<!--section id="literals">
+
+<h3>Literals</h3>
+
+<p>The following table summarizes differences in the handling of literals.</p>
+
+<table class="simple">
+  <caption>Literals in RDF 1.0 and 1.1.</caption>
+  <tr>
+        <th></th>
+  <th>RDF 1.0</th>
+  <th>RDF 1.1</th>
+  </tr>
+  <tr>
+  <td>Language tags</td>
+  <td>Literals with a language tag did not have a datatype URI.</td>
+  <td>Literals with language tags now have the datatype IRI
+        <code>rdf:langString</code>. </td>
+  </tr>
+  <tr>
+  <td rowspan="2">Simple literals</td>
+  <td>Simple literals could appear directly, e.g. "a literal".</td>
+  <td>All literals have datatypes; serializations or other
+        implementations might choose to support syntax for simple literals,
+        but only as synonyms for <code>xsd:string</code> literals.</td>
+  </tr>
+  <tr>
+  <td>Control codes in the #x0-#x1F range were permitted.</td>
+  <td>The <code>xsd:string</code> datatype does not permit the
+        #x0 character, and implementations might not permit control codes in
+        the #x1-#x1F range.  A literal with type <code>xsd:string</code>
+        containing the #x0 character is ill-typed. </td>
+  </tr>
+  <tr>
+  <td>Language tags</td>
+  <td>Permitted language tags that adhered to the generic
+        tag/subtag syntax of language tags, but were not well-formed
+        according to [[BCP47]]. </td>
+  <td>Language tags must be well-formed according to [[BCP47]].</td>
+  </tr>
+</table>
+
+<p>Planned updates to DOM version 4 [[DOM4]] are not complete as of
+this writing.  The Working  Group decided to
+follow the changes to the DOM in order to support the
+new datatype <code>rdf:HTML</code>.
+The unfinished status of DOM version 4 is why both
+<code>rdf:HTML</code> and <code>rdf:XMLLiteral</code> are
+non-normative in RDF 1.1 Concepts.  RDF 1.1 Concepts and Abstract
+Syntax clarifies functionality deemed to be
+useful for those including fragments of XML and HTML content in RDF
+serialization formats.</p>
+
+</section -->
+
+<!--section id="datasets">
+
+<h3>Datasets</h3>
+
+<p>RDF 1.1 introduces the concept of RDF Datasets.  An RDF Dataset is a collection of RDF
+Graphs.  SPARQL 1.2 [[SPARQL12-CONCEPTS]] also defines the concept of an RDF Dataset, but
+the definition in RDF 1.1 differs slightly in that RDF 1.1 allows RDF Graphs to be
+identified using either an IRI or a blank node. More information is available in
+RDF 1.1 Concepts and Abstract Syntax.</p>
+
+<p>The semantics of RDF Datasets
+are minimally specified as of RDF
+1.1. The Working Group published a
+draft Note discussing issues related
+to semantics of datasets [[RDF11-DATASETS]].</p>
+
+<p>RDF Graphs may be named using an IRI or a blank node.  RDF Graphs that are so named are
+called named graphs.</p>
+
+<p>RDF 1.1 includes three new serialization formats capable of
+representing multiple graphs.</p>
+
+</section -->
+
+<!--section id="datatypes">
+
+<h3>Datatypes</h3>
+
+<p>A table of RDF-compatible XSD datatypes has been added to RDF 1.1 Concepts and
+Abstract Syntax.  Any XSD datatypes not represented in this table are incompatible
+with RDF.  The following XSD 1.1 datatypes were added to the list of
+RDF-compatible datatypes:</p>
+
+<ul>
+  <li><code>xsd:duration</code></li>
+  <li><code>xsd:dayTimeDuration</code></li>
+  <li><code>xsd:yearMonthDuration</code></li>
+  <li><code>xsd:dateTimeStamp</code></li>
+</ul>
+
+<p>Support for <code>rdf:XMLLiteral</code> support is now
+optional.  Technically, support for
+any individual datatype is optional and therefore may not be present in a given
+implementation.  RDF-conformant specifications may require specific
+datatype maps.</p>
+
+</section -->
+
+</section>
+
+<section id="section-serializations">
+
+<h2>New Serialization Formats</h2>
+
+<p>RDF 1.1 introduces a number of new serialization formats. RDF 1.1 Concepts and
+Abstract Syntax makes it clear that RDF/XML is no longer the only recommended serialization
+format; RDF itself should be considered to be the data model (the
+abstract syntax), not any particular serialization.</p>
+
+<figure>
+  <img class="graph" src="serialization-formats.png">
+  <figcaption>RDF 1.0 and 1.1 serialization formats</figcaption>
+</figure>
+
+</section>
+
+<section id="section-semantics">
+
+<h2>Semantics</h2>
+
+<p>Most of the changes between RDF and RDF 1.1 do not have any effect on
+implementations of entailment.</p>
+
+<p>Datatype entailment formally refers to a set of 'recognized' datatypes,
+replacing datatype maps in RDF 1.0 Semantics, but this does not have any
+effect on implementation.</p>
+
+<p>Datatype entailment formally refers to a set of 'recognized' datatype IRIs.
+The RDF 1.0 Semantics used the concept of a datatype map: in the new semantic
+description, this is the mapping from recognized IRIs to the datatypes they
+identify. This change does not have any effect on implementation or semantic
+entailments.</p>
+
+<p>RDF entailment has two required datatypes <code>xsd:string</code>
+and <code>rdf:langString</code>
+which must be recognized, but this doesn't appreciably add to RDF
+entailment as these two datatypes replace plain literals.</p>
+
+<p>One change that does affect entailment is that graphs containing invalid
+literals (e.g., <code>"a"^^xsd:integer</code>) are immediately inconsistent for
+recognized datatypes, even in sub-RDFS entailment regimes.</p>
+
+<p>RDF 1.1 includes RDF Datasets. However, the semantics of RDF Datasets in
+RDF 1.1 is minimal and entailment per se is only defined on RDF graphs so
+there are no changes here.</p>
+
+</section>
+
+<section id="section-Acknowledgments" class="appendix">
+
+<h2>Acknowledgments</h2>
+
+<p>The editor gratefully acknowledges the members of the RDF Working
+Group who contributed to this document, including Richard Cyganiak,
+Gavin Garothers, Pat Hayes, Sandro Hawke, Gregg Kellogg, Markus
+Lanthaler, Peter Patel-Schneider, Eric Prud-hommeaux, Guus Schreiber
+and Manu Sporny.
+
+<p>The membership of the RDF Working Group included Thomas Baker,
+Scott Bauer, Dan Brickley, Gavin Carothers, Pierre-Antoine Champin,
+Olivier Corby, Richard Cyganiak, Souripriya Das, Ian Davis, Lee
+Feigenbaum, Fabien Gandon, Charles Greer, Alex Hall, Steve Harris,
+Sandro Hawke, Pat Hayes, Ivan Herman, Nicholas Humfrey, Kingsley
+Idehen, Gregg Kellogg, Markus Lanthaler, Arnaud Le Hors, Peter F.
+Patel-Schneider, Eric Prud'hommeaux, Yves Raimond, Nathan Rixham, Guus
+Schreiber, Andy Seaborne, Manu Sporny, Thomas Steiner, Ted Thibodeau,
+Mischa Tuffield, William Waites, Jan Wielemaker, David Wood, Zhe Wu,
+and Antoine Zimmermann.</p>
+
+</section>
+
+  </body>
+</html>
