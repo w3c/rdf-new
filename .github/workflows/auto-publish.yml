@@ -24,8 +24,7 @@ jobs:
           # W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
           # W3C_WG_DECISION_URL: https://www.w3.org/2022/11/09-rch-minutes#r03
           W3C_BUILD_OVERRIDE: |
-            specStatus: WD
-            shortName: rdf12-concepts
+            specStatus: DNOTE
       - name: "Verify common files are consistent"
         run: |
           git submodule add https://github.com/w3c/rdf-common.git spec/rdf-common
