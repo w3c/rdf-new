@@ -1,0 +1,1497 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 34.1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;margin-top:.25em}
+.dfn-panel ul a[href]{color:#333}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+  
+  
+<title>What’s New in RDF 1.2</title>
+  
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+:is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
+dfn{font-weight:700}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+.toc a,.tof a{text-decoration:none}
+a .figno,a .secno{color:#000}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
+.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
+.simple th a{color:#fff;padding:3px 5px;text-align:left}
+.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
+.simple td{padding:3px 10px;border-top:1px solid #ddd}
+.simple tr:nth-child(even){background:#f0f6ff}
+.section dd>p:first-child{margin-top:0}
+.section dd>p:last-child{margin-bottom:0}
+.section dd{margin-bottom:1em}
+.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+  
+  
+  
+  
+<style type="text/css">
+
+    figure { text-align: center; }
+    img.graph { width: 95%; }
+    table td, table th { border: 1px solid #ddd; padding: 0.2em 0.5em; }
+  
+</style>
+
+<meta name="description" content="This document provides the reader with a summary
+  of changes to RDF introduced in RDF version 1.2.">
+<link rel="canonical" href="https://www.w3.org/TR/rdf12-new/">
+<script type="application/ld+json">{
+  "@context": [
+    "http://schema.org",
+    {
+      "@vocab": "http://schema.org/",
+      "@language": "en",
+      "w3p": "http://www.w3.org/2001/02pd/rec54#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "datePublished": {
+        "@type": "http://www.w3.org/2001/XMLSchema#date"
+      },
+      "inLanguage": {
+        "@language": null
+      },
+      "isBasedOn": {
+        "@type": "@id"
+      },
+      "license": {
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "https://www.w3.org/TR/rdf12-new/",
+  "type": [
+    "TechArticle"
+  ],
+  "name": "What’s New in RDF 1.2",
+  "inLanguage": "en",
+  "license": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document",
+  "datePublished": "2023-05-04",
+  "copyrightHolder": {
+    "name": "World Wide Web Consortium",
+    "url": "https://www.w3.org/"
+  },
+  "discussionUrl": "https://github.com/w3c/rdf-new/issues/",
+  "alternativeHeadline": "",
+  "isBasedOn": "https://www.w3.org/TR/2014/NOTE-rdf12-new-20140225/",
+  "description": "This document provides the reader with a summary\n  of changes to RDF introduced in RDF version 1.2.",
+  "editor": [
+    {
+      "type": "Person",
+      "name": "Ora Lassila"
+    }
+  ],
+  "contributor": [],
+  "citation": [
+    {
+      "id": "https://w3c.github.io/rdf-primer/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 Primer",
+      "url": "https://w3c.github.io/rdf-primer/spec/",
+      "creator": [
+        {
+          "name": "Guus Schreiber"
+        },
+        {
+          "name": "Yves Raimond"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/rdf-concepts/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 Concepts and Abstract Syntax",
+      "url": "https://w3c.github.io/rdf-concepts/spec/",
+      "creator": [
+        {
+          "name": "Richard Cyganiak"
+        },
+        {
+          "name": "David Wood"
+        },
+        {
+          "name": "Markus Lanthaler"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/rdf-semantics/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 Semantics",
+      "url": "https://w3c.github.io/rdf-semantics/spec/",
+      "creator": [
+        {
+          "name": "Patrick Hayes"
+        },
+        {
+          "name": "Peter Patel-Schneider"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/rdf-turtle/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 Turtle",
+      "url": "https://w3c.github.io/rdf-turtle/spec/",
+      "creator": [
+        {
+          "name": "Eric Prud'hommeaux"
+        },
+        {
+          "name": "Gavin Carothers"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/rdf-trig/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 TriG",
+      "url": "https://w3c.github.io/rdf-trig/spec/",
+      "creator": [
+        {
+          "name": "Gavin Carothers"
+        },
+        {
+          "name": "Andy Seaborne"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/rdf-n-triples/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 N-Triples",
+      "url": "https://w3c.github.io/rdf-n-triples/spec/",
+      "creator": [
+        {
+          "name": "Gavin Carothers"
+        },
+        {
+          "name": "Andy Seaborne"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/rdf-n-quads/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 N-Quads",
+      "url": "https://w3c.github.io/rdf-n-quads/spec/",
+      "creator": [
+        {
+          "name": "Gavin Carothers"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://www.w3.org/TR/json-ld11/",
+      "type": "TechArticle",
+      "name": "JSON-LD 1.1",
+      "url": "https://www.w3.org/TR/json-ld11/",
+      "creator": [
+        {
+          "name": "Gregg Kellogg"
+        },
+        {
+          "name": "Pierre-Antoine Champin"
+        },
+        {
+          "name": "Dave Longley"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://www.w3.org/TR/rdfa-primer/",
+      "type": "TechArticle",
+      "name": "RDFa 1.1 Primer - Third Edition",
+      "url": "https://www.w3.org/TR/rdfa-primer/",
+      "creator": [
+        {
+          "name": "Ivan Herman"
+        },
+        {
+          "name": "Ben Adida"
+        },
+        {
+          "name": "Manu Sporny"
+        },
+        {
+          "name": "Mark Birbeck"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/rdf-xml/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 XML Syntax",
+      "url": "https://w3c.github.io/rdf-xml/spec/",
+      "creator": [
+        {
+          "name": "Fabien Gandon"
+        },
+        {
+          "name": "Guus Schreiber"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/rdf-schema/spec/",
+      "type": "TechArticle",
+      "name": "RDF 1.2 Schema",
+      "url": "https://w3c.github.io/rdf-schema/spec/",
+      "creator": [
+        {
+          "name": "Dan Brickley"
+        },
+        {
+          "name": "Ramanathan Guha"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-new/spec/",
+      "type": "TechArticle",
+      "name": "What’s New in SPARQL 1.2",
+      "url": "https://w3c.github.io/sparql-new/spec/",
+      "creator": [
+        {
+          "name": "The W3C RDF-star Working Group"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-concepts/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Concepts",
+      "url": "https://w3c.github.io/sparql-concepts/spec/",
+      "creator": [
+        {
+          "name": "The W3C RDF-star Working Group"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-query/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Query Language",
+      "url": "https://w3c.github.io/sparql-query/spec/",
+      "creator": [
+        {
+          "name": "Steven Harris"
+        },
+        {
+          "name": "Andy Seaborne"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-update/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Update",
+      "url": "https://w3c.github.io/sparql-update/spec/",
+      "creator": [
+        {
+          "name": "Paula Gearon"
+        },
+        {
+          "name": "Alexandre Passant"
+        },
+        {
+          "name": "Axel Polleres"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-service-description/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Service Description",
+      "url": "https://w3c.github.io/sparql-service-description/spec/",
+      "creator": [
+        {
+          "name": "Gregory Williams"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-federated-query/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Federated Query",
+      "url": "https://w3c.github.io/sparql-federated-query/spec/",
+      "creator": [
+        {
+          "name": "Eric Prud'hommeaux"
+        },
+        {
+          "name": "Carlos Buil Aranda"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-results-json/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Query Results JSON Format",
+      "url": "https://w3c.github.io/sparql-results-json/spec/",
+      "creator": [
+        {
+          "name": "Andy Seaborne"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-results-csv-tsv/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Query Results CSV and TSV Formats",
+      "url": "https://w3c.github.io/sparql-results-csv-tsv/spec/",
+      "creator": [
+        {
+          "name": "Andy Seaborne"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-results-xml/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Query Results XML Formats",
+      "url": "https://w3c.github.io/sparql-results-xml/spec/",
+      "creator": [
+        {
+          "name": "Sandro Hawke"
+        },
+        {
+          "name": "Dave Beckett"
+        },
+        {
+          "name": "Jeen Broekstra"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-entailment/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Entailment Regimes",
+      "url": "https://w3c.github.io/sparql-entailment/spec/",
+      "creator": [
+        {
+          "name": "Birte Glimm"
+        },
+        {
+          "name": "Chimezie Ogbuji"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-protocol/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Protocol",
+      "url": "https://w3c.github.io/sparql-protocol/spec/",
+      "creator": [
+        {
+          "name": "Lee Feigenbaum"
+        },
+        {
+          "name": "Gregory Williams"
+        },
+        {
+          "name": "Kendall Clark"
+        },
+        {
+          "name": "Elias Torres"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://w3c.github.io/sparql-graph-store-protocol/spec/",
+      "type": "TechArticle",
+      "name": "SPARQL 1.2 Graph Store HTTP Protocol",
+      "url": "https://w3c.github.io/sparql-graph-store-protocol/spec/",
+      "creator": [
+        {
+          "name": "Chimezie Ogbuji"
+        }
+      ],
+      "publishedDate": "2022-01-01",
+      "publisher": {
+        "name": "W3C"
+      }
+    }
+  ]
+}</script>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "localBiblio": {
+    "ISO24707": {
+      "id": "ISO24707",
+      "title": "Information technology — Common Logic (CL) — A framework for a family of logic-based languages",
+      "date": "2018-07",
+      "href": "https://www.iso.org/standard/66249.html",
+      "status": "Published",
+      "publisher": "ISO/EIC"
+    },
+    "HORST04": {
+      "id": "HORST04",
+      "title": "Extending the RDFS Entailment Lemma",
+      "authors": [
+        "Herman J. ter Horst"
+      ],
+      "date": "2004",
+      "isbn": "978-3-540-30475-3",
+      "href": "https://doi.org/10.1007/978-3-540-30475-3_7",
+      "status": "Conference Proceeding",
+      "publisher": "Springer, Berlin, Heidelberg"
+    },
+    "HORST05": {
+      "id": "HORST05",
+      "title": "Completeness, Decidability and Complexity of Entailment for RDF Schema and a Semantic Extension Involving the OWL Vocabulary",
+      "authors": [
+        "Herman J. ter Horst"
+      ],
+      "date": "2005",
+      "href": "https://dx.doi.org/10.2139/ssrn.3199251",
+      "status": "Conference Proceeding",
+      "publisher": "Journal of Web Semantics"
+    },
+    "SAFETY": {
+      "title": "Saftety of recursive horn clauses with infinite relations",
+      "href": "http://arxiv.org/abs/cs.LO/9809032",
+      "authors": [
+        "R. Ramakrishnan",
+        "F. Bancilhon",
+        "A. Silberschatz"
+      ],
+      "date": "1987",
+      "publisher": "ACM New York"
+    },
+    "STRIPEDRDF": {
+      "id": "STRIPEDRDF",
+      "title": "RDF: Understanding the Striped RDF/XML Syntax",
+      "editors": [
+        "D. Brickley"
+      ],
+      "date": "2001",
+      "href": "http://www.w3.org/2001/10/stripes/",
+      "status": "Team Submission",
+      "publisher": "W3C"
+    },
+    "RDF12-CONCEPTS": {
+      "authors": [
+        "Richard Cyganiak",
+        "David Wood",
+        "Markus Lanthaler"
+      ],
+      "href": "https://w3c.github.io/rdf-concepts/spec/",
+      "title": "RDF 1.2 Concepts and Abstract Syntax",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "rdf12-concepts"
+    },
+    "RDF12-SEMANTICS": {
+      "authors": [
+        "Patrick Hayes",
+        "Peter Patel-Schneider"
+      ],
+      "href": "https://w3c.github.io/rdf-semantics/spec/",
+      "title": "RDF 1.2 Semantics",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "rdf12-semantics"
+    },
+    "RDF12-N-QUADS": {
+      "authors": [
+        "Gavin Carothers"
+      ],
+      "href": "https://w3c.github.io/rdf-n-quads/spec/",
+      "title": "RDF 1.2 N-Quads",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "rdf12-n-quads"
+    },
+    "RDF12-N-TRIPLES": {
+      "authors": [
+        "Gavin Carothers",
+        "Andy Seaborne"
+      ],
+      "href": "https://w3c.github.io/rdf-n-triples/spec/",
+      "title": "RDF 1.2 N-Triples",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "rdf12-n-triples"
+    },
+    "RDF12-NEW": {
+      "authors": [
+        "David Wood"
+      ],
+      "href": "https://w3c.github.io/rdf-new/spec/",
+      "title": "What’s New in RDF 1.2",
+      "rawDate": "2022-01-01",
+      "status": "DNOTE",
+      "publisher": "W3C"
+    },
+    "RDF12-PRIMER": {
+      "authors": [
+        "Guus Schreiber",
+        "Yves Raimond"
+      ],
+      "href": "https://w3c.github.io/rdf-primer/spec/",
+      "title": "RDF 1.2 Primer",
+      "rawDate": "2022-01-01",
+      "status": "DNOTE",
+      "publisher": "W3C",
+      "id": "rdf12-primer"
+    },
+    "RDF12-SCHEMA": {
+      "authors": [
+        "Dan Brickley",
+        "Ramanathan Guha"
+      ],
+      "href": "https://w3c.github.io/rdf-schema/spec/",
+      "title": "RDF 1.2 Schema",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "rdf12-schema"
+    },
+    "RDF12-TRIG": {
+      "authors": [
+        "Gavin Carothers",
+        "Andy Seaborne"
+      ],
+      "href": "https://w3c.github.io/rdf-trig/spec/",
+      "title": "RDF 1.2 TriG",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "rdf12-trig"
+    },
+    "RDF12-TURTLE": {
+      "authors": [
+        "Eric Prud'hommeaux",
+        "Gavin Carothers"
+      ],
+      "href": "https://w3c.github.io/rdf-turtle/spec/",
+      "title": "RDF 1.2 Turtle",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "rdf12-turtle"
+    },
+    "RDF12-XML": {
+      "authors": [
+        "Fabien Gandon",
+        "Guus Schreiber"
+      ],
+      "href": "https://w3c.github.io/rdf-xml/spec/",
+      "title": "RDF 1.2 XML Syntax",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "rdf12-xml"
+    },
+    "SPARQL12-NEW": {
+      "authors": [
+        "The W3C RDF-star Working Group"
+      ],
+      "href": "https://w3c.github.io/sparql-new/spec/",
+      "title": "What’s New in SPARQL 1.2",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-new"
+    },
+    "SPARQL12-CONCEPTS": {
+      "authors": [
+        "The W3C RDF-star Working Group"
+      ],
+      "href": "https://w3c.github.io/sparql-concepts/spec/",
+      "title": "SPARQL 1.2 Concepts",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-concepts"
+    },
+    "SPARQL12-QUERY": {
+      "authors": [
+        "Steven Harris",
+        "Andy Seaborne"
+      ],
+      "href": "https://w3c.github.io/sparql-query/spec/",
+      "title": "SPARQL 1.2 Query Language",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-query"
+    },
+    "SPARQL12-UPDATE": {
+      "authors": [
+        "Paula Gearon",
+        "Alexandre Passant",
+        "Axel Polleres"
+      ],
+      "href": "https://w3c.github.io/sparql-update/spec/",
+      "title": "SPARQL 1.2 Update",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-update"
+    },
+    "SPARQL12-SERVICE-DESCRIPTION": {
+      "authors": [
+        "Gregory Williams"
+      ],
+      "href": "https://w3c.github.io/sparql-service-description/spec/",
+      "title": "SPARQL 1.2 Service Description",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-service-description"
+    },
+    "SPARQL12-FEDERATED-QUERY": {
+      "authors": [
+        "Eric Prud'hommeaux",
+        "Carlos Buil Aranda"
+      ],
+      "href": "https://w3c.github.io/sparql-federated-query/spec/",
+      "title": "SPARQL 1.2 Federated Query",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-federated-query"
+    },
+    "SPARQL12-RESULTS-JSON": {
+      "authors": [
+        "Andy Seaborne"
+      ],
+      "href": "https://w3c.github.io/sparql-results-json/spec/",
+      "title": "SPARQL 1.2 Query Results JSON Format",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-results-json"
+    },
+    "SPARQL12-RESULTS-CSV-TSV": {
+      "authors": [
+        "Andy Seaborne"
+      ],
+      "href": "https://w3c.github.io/sparql-results-csv-tsv/spec/",
+      "title": "SPARQL 1.2 Query Results CSV and TSV Formats",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-results-csv-tsv"
+    },
+    "SPARQL12-RESULTS-XML": {
+      "authors": [
+        "Sandro Hawke",
+        "Dave Beckett",
+        "Jeen Broekstra"
+      ],
+      "href": "https://w3c.github.io/sparql-results-xml/spec/",
+      "title": "SPARQL 1.2 Query Results XML Formats",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-results-xml"
+    },
+    "SPARQL12-ENTAILMENT": {
+      "authors": [
+        "Birte Glimm",
+        "Chimezie Ogbuji"
+      ],
+      "href": "https://w3c.github.io/sparql-entailment/spec/",
+      "title": "SPARQL 1.2 Entailment Regimes",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-entailment"
+    },
+    "SPARQL12-PROTOCOL": {
+      "authors": [
+        "Lee Feigenbaum",
+        "Gregory Williams",
+        "Kendall Clark",
+        "Elias Torres"
+      ],
+      "href": "https://w3c.github.io/sparql-protocol/spec/",
+      "title": "SPARQL 1.2 Protocol",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-protocol"
+    },
+    "SPARQL12-GRAPH-STORE-PROTOCOL": {
+      "authors": [
+        "Chimezie Ogbuji"
+      ],
+      "href": "https://w3c.github.io/sparql-graph-store-protocol/spec/",
+      "title": "SPARQL 1.2 Graph Store HTTP Protocol",
+      "rawDate": "2022-01-01",
+      "status": "WD",
+      "publisher": "W3C",
+      "id": "sparql12-graph-store-protocol"
+    },
+    "CBD": {
+      "title": "CBD - Concise Bounded Description",
+      "href": "https://www.w3.org/Submission/CBD/",
+      "authors": [
+        "Patrick Stickler, Nokia"
+      ],
+      "rawDate": "2005-06-03",
+      "publisher": "W3C",
+      "status": "W3C Member Submission"
+    }
+  },
+  "specStatus": "DNOTE",
+  "edDraftURI": "https://w3c.github.io/rdf-new/spec/",
+  "noRecTrack": true,
+  "shortName": "rdf12-new",
+  "previousPublishDate": "2014-02-25",
+  "previousMaturity": "NOTE",
+  "prevRecShortname": "rdf11-new",
+  "editors": [
+    {
+      "name": "Ora Lassila",
+      "w3cid": "9656"
+    }
+  ],
+  "formerEditors": [
+    {
+      "name": "David Wood"
+    }
+  ],
+  "github": "https://github.com/w3c/rdf-new/",
+  "group": "rdf-star",
+  "doJsonLd": true,
+  "wgPublicList": "public-rdf-star-wg",
+  "publishDate": "2023-05-04",
+  "publishISODate": "2023-05-04T00:00:00.000Z",
+  "generatedSubtitle": "W3C Group Draft Note 04 May 2023"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-DNOTE"></head>
+<body class="h-entry informative"><div class="head">
+    <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
+  </a></p>
+    <h1 id="title" class="title">What’s New in RDF 1.2</h1> 
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#DNOTE">W3C Group Draft Note</a> <time class="dt-published" datetime="2023-05-04">04 May 2023</time></p>
+    <details open="">
+      <summary>More details about this document</summary>
+      <dl>
+        <dt>This version:</dt><dd>
+                <a class="u-url" href="https://www.w3.org/TR/2023/DNOTE-rdf12-new-20230504/">https://www.w3.org/TR/2023/DNOTE-rdf12-new-20230504/</a>
+              </dd>
+        <dt>Latest published version:</dt><dd>
+                <a href="https://www.w3.org/TR/rdf12-new/">https://www.w3.org/TR/rdf12-new/</a>
+              </dd>
+        <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/rdf-new/spec/">https://w3c.github.io/rdf-new/spec/</a></dd>
+        <dt>History:</dt><dd>
+                    <a href="https://www.w3.org/standards/history/rdf12-new">https://www.w3.org/standards/history/rdf12-new</a>
+                  </dd><dd>
+                    <a href="https://github.com/w3c/rdf-new/commits/">Commit history</a>
+                  </dd>
+        
+        
+        
+        
+        <dt>Latest Recommendation:</dt><dd><a href="https://www.w3.org/TR/rdf11-new">https://www.w3.org/TR/rdf11-new</a></dd>
+        <dt>Editor:</dt><dd class="editor p-author h-card vcard" data-editor-id="9656">
+    <span class="p-name fn">Ora Lassila</span>
+  </dd>
+        <dt>
+                Former editor:
+              </dt><dd class="editor p-author h-card vcard">
+    <span class="p-name fn">David Wood</span>
+  </dd>
+        
+        <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/rdf-new/">GitHub w3c/rdf-new</a>
+        (<a href="https://github.com/w3c/rdf-new/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/rdf-new/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/rdf-new/issues/">open issues</a>)
+      </dd><dd><a href="mailto:public-rdf-star-wg@w3.org?subject=%5Brdf12-new%5D%20YOUR%20TOPIC%20HERE">public-rdf-star-wg@w3.org</a> with subject line <kbd>[rdf12-new] <em>… message topic …</em></kbd> (<a rel="discussion" href="https://lists.w3.org/Archives/Public/public-rdf-star-wg">archives</a>)</dd>
+        
+        
+      </dl>
+    </details>
+    
+    
+    <p class="copyright">
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+    ©
+    2023
+    
+    <a href="https://www.w3.org/">World Wide Web Consortium</a>.
+    <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup>
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+    <a rel="license" href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" title="W3C Software and Document Notice and License">permissive document license</a> rules apply.
+  </p>
+    <hr title="Separator for header">
+  </div>
+
+<section id="abstract" class="introductory"><h2>Abstract</h2>
+
+  <p>This document provides the reader with a summary
+  of changes to RDF introduced in RDF version 1.2.
+  </p>
+</section>
+
+<section id="sotd" class="introductory"><h2>Status of This Document</h2><p><em>This section describes the status of this
+      document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr>
+      publications and the latest revision of this technical report can be found
+      in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
+      https://www.w3.org/TR/.</em></p>
+  <p>This document is intended to provide the reader with a summary
+    of changes to RDF introduced in RDF version 1.2. </p>
+
+  <p>
+    This document was published by the <a href="https://www.w3.org/groups/wg/rdf-star">RDF-star Working Group</a> as
+    a Group Draft Note using the
+        <a href="https://www.w3.org/2021/Process-20211102/#recs-and-notes">Note track</a>. 
+  </p><p>Group Draft Notes are not endorsed by
+        <abbr title="World Wide Web Consortium">W3C</abbr> nor its Members. </p><p>
+    This is a draft document and may be updated, replaced or obsoleted by other
+    documents at any time. It is inappropriate to cite this document as other
+    than work in progress.
+    
+  </p><p data-deliverer="139681">
+    
+        The
+        <a href="https://www.w3.org/Consortium/Patent-Policy/"><abbr title="World Wide Web Consortium">W3C</abbr> Patent
+          Policy</a>
+        does not carry any licensing requirements or commitments on this
+        document.
+      
+    
+  </p><p>
+                  This document is governed by the
+                  <a id="w3c_process_revision" href="https://www.w3.org/2021/Process-20211102/">2 November 2021 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+                </p><section id="related"><div class="header-wrapper"><h3 id="set-of-documents">Set of Documents</h3><a class="self-link" href="#related" aria-label="Permalink for this Section"></a></div>
+<p>This document is one of ten RDF 1.2 and twelve SPARQL 1.2 Recommendations produced by the <a href="https://www.w3.org/groups/wg/rdf-star">RDF-star Working Group</a>:</p>
+
+<p>RDF 1.2 Recommendations:</p>
+<ol>
+  <li>What’s New in RDF 1.2(this document)</li>
+  <li><cite><a data-matched-text="[[[RDF12-CONCEPTS]]]" href="https://w3c.github.io/rdf-concepts/spec/">RDF 1.2 Concepts and Abstract Syntax</a></cite></li>
+  <li><cite><a data-matched-text="[[[RDF12-N-QUADS]]]" href="https://w3c.github.io/rdf-n-quads/spec/">RDF 1.2 N-Quads</a></cite></li>
+  <li><cite><a data-matched-text="[[[RDF12-N-TRIPLES]]]" href="https://w3c.github.io/rdf-n-triples/spec/">RDF 1.2 N-Triples</a></cite></li>
+  <li><cite><a data-matched-text="[[[RDF12-PRIMER]]]" href="https://w3c.github.io/rdf-primer/spec/">RDF 1.2 Primer</a></cite></li>
+  <li><cite><a data-matched-text="[[[RDF12-SCHEMA]]]" href="https://w3c.github.io/rdf-schema/spec/">RDF 1.2 Schema</a></cite></li>
+  <li><cite><a data-matched-text="[[[RDF12-SEMANTICS]]]" href="https://w3c.github.io/rdf-semantics/spec/">RDF 1.2 Semantics</a></cite></li>
+  <li><cite><a data-matched-text="[[[RDF12-TRIG]]]" href="https://w3c.github.io/rdf-trig/spec/">RDF 1.2 TriG</a></cite></li>
+  <li><cite><a data-matched-text="[[[RDF12-TURTLE]]]" href="https://w3c.github.io/rdf-turtle/spec/">RDF 1.2 Turtle</a></cite></li>
+  <li><cite><a data-matched-text="[[[RDF12-XML]]]" href="https://w3c.github.io/rdf-xml/spec/">RDF 1.2 XML Syntax</a></cite></li>
+</ol>
+
+<p>SPARQL 1.2 Recommendations:</p>
+<ol>
+  <li><cite><a data-matched-text="[[[SPARQL12-NEW]]]" href="https://w3c.github.io/sparql-new/spec/">What’s New in SPARQL 1.2</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-CONCEPTS]]]" href="https://w3c.github.io/sparql-concepts/spec/">SPARQL 1.2 Concepts</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-QUERY]]]" href="https://w3c.github.io/sparql-query/spec/">SPARQL 1.2 Query Language</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-UPDATE]]]" href="https://w3c.github.io/sparql-update/spec/">SPARQL 1.2 Update</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-SERVICE-DESCRIPTION]]]" href="https://w3c.github.io/sparql-service-description/spec/">SPARQL 1.2 Service Description</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-FEDERATED-QUERY]]]" href="https://w3c.github.io/sparql-federated-query/spec/">SPARQL 1.2 Federated Query</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-RESULTS-JSON]]]" href="https://w3c.github.io/sparql-results-json/spec/">SPARQL 1.2 Query Results JSON Format</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-RESULTS-CSV-TSV]]]" href="https://w3c.github.io/sparql-results-csv-tsv/spec/">SPARQL 1.2 Query Results CSV and TSV Formats</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-RESULTS-XML]]]" href="https://w3c.github.io/sparql-results-xml/spec/">SPARQL 1.2 Query Results XML Formats</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-ENTAILMENT]]]" href="https://w3c.github.io/sparql-entailment/spec/">SPARQL 1.2 Entailment Regimes</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-PROTOCOL]]]" href="https://w3c.github.io/sparql-protocol/spec/">SPARQL 1.2 Protocol</a></cite></li>
+  <li><cite><a data-matched-text="[[[SPARQL12-GRAPH-STORE-PROTOCOL]]]" href="https://w3c.github.io/sparql-graph-store-protocol/spec/">SPARQL 1.2 Graph Store HTTP Protocol</a></cite></li>
+</ol>
+</section>
+</section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#related">Set of Documents</a></li></ol></li><li class="tocline"><a class="tocxref" href="#section-introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#section-abstract-syntax"><bdi class="secno">2. </bdi>Abstract Syntax</a></li><li class="tocline"><a class="tocxref" href="#section-serializations"><bdi class="secno">3. </bdi>New Serialization Formats</a></li><li class="tocline"><a class="tocxref" href="#section-semantics"><bdi class="secno">4. </bdi>Semantics</a></li><li class="tocline"><a class="tocxref" href="#section-Acknowledgments"><bdi class="secno">A. </bdi>Acknowledgments</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#acknowledgments-for-rdf-1-1"><bdi class="secno">A.1 </bdi>Acknowledgments for RDF 1.1</a></li><li class="tocline"><a class="tocxref" href="#acknowledgments-for-rdf-1-2"><bdi class="secno">A.2 </bdi>Acknowledgments for RDF 1.2</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">B. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">B.1 </bdi>Informative references</a></li></ol></li></ol></nav>
+
+<section id="section-introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#section-introduction" aria-label="Permalink for Section 1."></a></div>
+
+    
+
+    <p>This document is informative in nature.  Its
+      purpose is to provide a summary of differences between RDF versions 1.1
+      and 1.2 and to introduce new additions in a very brief manner.</p>
+
+    <p>Readers new to RDF should start with the <cite><a data-matched-text="[[[RDF12-PRIMER]]]" href="https://w3c.github.io/rdf-primer/spec/">RDF 1.2 Primer</a></cite> [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-primer" title="RDF 1.2 Primer">RDF12-PRIMER</a></cite>]
+      and then move on to the specifications in which they are
+      most interested.  This document is meant to serve as a guide for those
+      already familiar with RDF 1.1 who wish to understand changes in version
+      1.2.</p>
+
+    <p>Normative specifications of RDF can be found in the
+      following documents: </p>
+    <ul>
+      <li>A document describing the basic concepts underlying RDF, as
+        well as abstract syntax (<cite><a data-matched-text="[[[RDF12-CONCEPTS]]]" href="https://w3c.github.io/rdf-concepts/spec/">RDF 1.2 Concepts and Abstract Syntax</a></cite>) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-concepts" title="RDF 1.2 Concepts and Abstract Syntax">RDF12-CONCEPTS</a></cite>]</li>
+      <li>A document describing the formal model-theoretic semantics
+        of RDF (<cite><a data-matched-text="[[[RDF12-SEMANTICS]]]" href="https://w3c.github.io/rdf-semantics/spec/">RDF 1.2 Semantics</a></cite>) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-semantics" title="RDF 1.2 Semantics">RDF12-SEMANTICS</a></cite>]</li>
+      <li>Specifications of concrete syntaxes for RDF, such as Turtle
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-turtle" title="RDF 1.2 Turtle">RDF12-TURTLE</a></cite>], TriG [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-trig" title="RDF 1.2 TriG">RDF12-TRIG</a></cite>], N-Triples [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-n-triples" title="RDF 1.2 N-Triples">RDF12-N-TRIPLES</a></cite>],
+        N-Quads [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-n-quads" title="RDF 1.2 N-Quads">RDF12-N-QUADS</a></cite>] and JSON-LD [<cite><a class="bibref" data-link-type="biblio" href="#bib-json-ld11" title="JSON-LD 1.1">JSON-LD11</a></cite>].
+        RDFa [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdfa-primer" title="RDFa 1.1 Primer - Third Edition">RDFA-PRIMER</a></cite>] is also a concrete syntax for RDF, but it was not defined
+        by the RDF Working Group.
+        The 2004 RDF/XML syntax was updated to be in line with the RDF 1.2
+        specifications [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-xml" title="RDF 1.2 XML Syntax">RDF12-XML</a></cite>]. </li>
+      <li>A document describing RDF Schema [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-schema" title="RDF 1.2 Schema">RDF12-SCHEMA</a></cite>], which
+        provides a data-modeling vocabulary for RDF data. </li>
+    </ul>
+
+    <p>The following prefixes are used in this document:</p>
+
+    <table class="simple">
+      <caption>Prefixes and IRIs</caption>
+      <tbody><tr><th>Namespace prefix</th><th>Namespace IRI</th><th>RDF vocabulary</th></tr>
+      <tr>
+        <td>rdf</td>
+        <td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></a></td>
+        <td>The RDF built-in vocabulary [<cite><a class="bibref" data-link-type="biblio" href="#bib-rdf12-schema" title="RDF 1.2 Schema">RDF12-SCHEMA</a></cite>]</td>
+      </tr>
+      <tr>
+        <td>xsd</td>
+        <td><a href="http://www.w3.org/2001/XMLSchema#"><code>http://www.w3.org/2001/XMLSchema#</code></a></td>
+        <td>The RDF-compatible XML Schema datatypes</td></tr>
+    </tbody></table>
+
+</section>
+
+<section id="section-abstract-syntax"><div class="header-wrapper"><h2 id="x2-abstract-syntax"><bdi class="secno">2. </bdi>Abstract Syntax</h2><a class="self-link" href="#section-abstract-syntax" aria-label="Permalink for Section 2."></a></div>
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+<section id="section-serializations"><div class="header-wrapper"><h2 id="x3-new-serialization-formats"><bdi class="secno">3. </bdi>New Serialization Formats</h2><a class="self-link" href="#section-serializations" aria-label="Permalink for Section 3."></a></div>
+
+
+
+<p>RDF 1.1 introduces a number of new serialization formats. RDF 1.1 Concepts and
+Abstract Syntax makes it clear that RDF/XML is no longer the only recommended serialization
+format; RDF itself should be considered to be the data model (the
+abstract syntax), not any particular serialization.</p>
+
+<figure id="fig-rdf-1-0-and-1-1-serialization-formats">
+  <img class="graph" src="serialization-formats.png">
+  <figcaption><a class="self-link" href="#fig-rdf-1-0-and-1-1-serialization-formats">Figure <bdi class="figno">1</bdi></a> <span class="fig-title">RDF 1.0 and 1.1 serialization formats</span></figcaption>
+</figure>
+
+</section>
+
+<section id="section-semantics"><div class="header-wrapper"><h2 id="x4-semantics"><bdi class="secno">4. </bdi>Semantics</h2><a class="self-link" href="#section-semantics" aria-label="Permalink for Section 4."></a></div>
+
+
+
+<p>Most of the changes between RDF and RDF 1.1 do not have any effect on
+implementations of entailment.</p>
+
+<p>Datatype entailment formally refers to a set of 'recognized' datatypes,
+replacing datatype maps in RDF 1.0 Semantics, but this does not have any
+effect on implementation.</p>
+
+<p>Datatype entailment formally refers to a set of 'recognized' datatype IRIs.
+The RDF 1.0 Semantics used the concept of a datatype map: in the new semantic
+description, this is the mapping from recognized IRIs to the datatypes they
+identify. This change does not have any effect on implementation or semantic
+entailments.</p>
+
+<p>RDF entailment has two required datatypes <code>xsd:string</code>
+and <code>rdf:langString</code>
+which must be recognized, but this doesn't appreciably add to RDF
+entailment as these two datatypes replace plain literals.</p>
+
+<p>One change that does affect entailment is that graphs containing invalid
+literals (e.g., <code>"a"^^xsd:integer</code>) are immediately inconsistent for
+recognized datatypes, even in sub-RDFS entailment regimes.</p>
+
+<p>RDF 1.1 includes RDF Datasets. However, the semantics of RDF Datasets in
+RDF 1.1 is minimal and entailment per se is only defined on RDF graphs so
+there are no changes here.</p>
+
+</section>
+
+<section id="section-Acknowledgments" class="appendix"><div class="header-wrapper"><h2 id="a-acknowledgments"><bdi class="secno">A. </bdi>Acknowledgments</h2><a class="self-link" href="#section-Acknowledgments" aria-label="Permalink for Appendix A."></a></div>
+
+  
+
+  <section class="informative" id="acknowledgments-for-rdf-1-1"><div class="header-wrapper"><h3 id="a-1-acknowledgments-for-rdf-1-1"><bdi class="secno">A.1 </bdi>Acknowledgments for RDF 1.1</h3><a class="self-link" href="#acknowledgments-for-rdf-1-1" aria-label="Permalink for Appendix A.1"></a></div><p><em>This section is non-normative.</em></p>
+    
+
+    <p>The editor gratefully acknowledges the members of the RDF Working
+    Group who contributed to this document, including Richard Cyganiak,
+    Gavin Garothers, Pat Hayes, Sandro Hawke, Gregg Kellogg, Markus
+    Lanthaler, Peter Patel-Schneider, Eric Prud-hommeaux, Guus Schreiber
+    and Manu Sporny.
+
+    </p><p>The membership of the RDF Working Group included Thomas Baker,
+    Scott Bauer, Dan Brickley, Gavin Carothers, Pierre-Antoine Champin,
+    Olivier Corby, Richard Cyganiak, Souripriya Das, Ian Davis, Lee
+    Feigenbaum, Fabien Gandon, Charles Greer, Alex Hall, Steve Harris,
+    Sandro Hawke, Pat Hayes, Ivan Herman, Nicholas Humfrey, Kingsley
+    Idehen, Gregg Kellogg, Markus Lanthaler, Arnaud Le Hors, Peter F.
+    Patel-Schneider, Eric Prud'hommeaux, Yves Raimond, Nathan Rixham, Guus
+    Schreiber, Andy Seaborne, Manu Sporny, Thomas Steiner, Ted Thibodeau,
+    Mischa Tuffield, William Waites, Jan Wielemaker, David Wood, Zhe Wu,
+    and Antoine Zimmermann.</p>
+  </section>
+
+  <section class="informative" id="acknowledgments-for-rdf-1-2"><div class="header-wrapper"><h3 id="a-2-acknowledgments-for-rdf-1-2"><bdi class="secno">A.2 </bdi>Acknowledgments for RDF 1.2</h3><a class="self-link" href="#acknowledgments-for-rdf-1-2" aria-label="Permalink for Appendix A.2"></a></div><p><em>This section is non-normative.</em></p>
+    
+
+    <p>In addition to the editors, the following people have contributed to this specification:
+      <span id="gh-contributors">Gregg Kellogg and Pierre-Antoine Champin</span>
+    </p>
+
+    <p>Members of the RDF-star Working Group Group included Adrian Gschwend, Andy Seaborne, Antoine Zimmermann, Dan Brickley, David Chaves-Fraga, Dominik Tomaszuk, Dörthe Arndt, Enrico Franconi, Fabien Gandon, Gregg Kellogg, Gregory Williams, Jesse Wright, Julián Arenas-Guerrero, Olaf Hartig, Ora Lassila, Pasquale Lisena, Peter Patel-Schneider, Pierre-Antoine Champin, Raphaël Troncy, Ruben Taelman, Rémi Ceres, Sarven Capadisli, Souripriya Das, Ted Thibodeau, and Timothée Haudebourg.
+</p>
+
+    <div class="note" id="issue-container-generatedID"><div role="heading" class="ednote-title marker" id="h-ednote" aria-level="4"><span>Editor's note</span></div><p class="">Recognize members of the Task Force? Not an easy to find list of contributors.</p></div>
+  </section>
+
+</section>
+
+  
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="b-references"><bdi class="secno">B. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix B."></a></div><section id="informative-references"><div class="header-wrapper"><h3 id="b-1-informative-references"><bdi class="secno">B.1 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix B.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-json-ld11">[JSON-LD11]</dt><dd>
+      <a href="https://www.w3.org/TR/json-ld11/"><cite>JSON-LD 1.1</cite></a>. Gregg Kellogg; Pierre-Antoine Champin; Dave Longley.  W3C. 16 July 2020. W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld11/">https://www.w3.org/TR/json-ld11/</a>
+    </dd><dt id="bib-rdf12-concepts">[RDF12-CONCEPTS]</dt><dd>
+      <a href="https://w3c.github.io/rdf-concepts/spec/"><cite>RDF 1.2 Concepts and Abstract Syntax</cite></a>. Richard Cyganiak; David Wood; Markus Lanthaler.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/rdf-concepts/spec/">https://w3c.github.io/rdf-concepts/spec/</a>
+    </dd><dt id="bib-rdf12-n-quads">[RDF12-N-QUADS]</dt><dd>
+      <a href="https://w3c.github.io/rdf-n-quads/spec/"><cite>RDF 1.2 N-Quads</cite></a>. Gavin Carothers.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/rdf-n-quads/spec/">https://w3c.github.io/rdf-n-quads/spec/</a>
+    </dd><dt id="bib-rdf12-n-triples">[RDF12-N-TRIPLES]</dt><dd>
+      <a href="https://w3c.github.io/rdf-n-triples/spec/"><cite>RDF 1.2 N-Triples</cite></a>. Gavin Carothers; Andy Seaborne.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/rdf-n-triples/spec/">https://w3c.github.io/rdf-n-triples/spec/</a>
+    </dd><dt id="bib-rdf12-primer">[RDF12-PRIMER]</dt><dd>
+      <a href="https://w3c.github.io/rdf-primer/spec/"><cite>RDF 1.2 Primer</cite></a>. Guus Schreiber; Yves Raimond.  W3C. DNOTE. URL: <a href="https://w3c.github.io/rdf-primer/spec/">https://w3c.github.io/rdf-primer/spec/</a>
+    </dd><dt id="bib-rdf12-schema">[RDF12-SCHEMA]</dt><dd>
+      <a href="https://w3c.github.io/rdf-schema/spec/"><cite>RDF 1.2 Schema</cite></a>. Dan Brickley; Ramanathan Guha.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/rdf-schema/spec/">https://w3c.github.io/rdf-schema/spec/</a>
+    </dd><dt id="bib-rdf12-semantics">[RDF12-SEMANTICS]</dt><dd>
+      <a href="https://w3c.github.io/rdf-semantics/spec/"><cite>RDF 1.2 Semantics</cite></a>. Patrick Hayes; Peter Patel-Schneider.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/rdf-semantics/spec/">https://w3c.github.io/rdf-semantics/spec/</a>
+    </dd><dt id="bib-rdf12-trig">[RDF12-TRIG]</dt><dd>
+      <a href="https://w3c.github.io/rdf-trig/spec/"><cite>RDF 1.2 TriG</cite></a>. Gavin Carothers; Andy Seaborne.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/rdf-trig/spec/">https://w3c.github.io/rdf-trig/spec/</a>
+    </dd><dt id="bib-rdf12-turtle">[RDF12-TURTLE]</dt><dd>
+      <a href="https://w3c.github.io/rdf-turtle/spec/"><cite>RDF 1.2 Turtle</cite></a>. Eric Prud'hommeaux; Gavin Carothers.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/rdf-turtle/spec/">https://w3c.github.io/rdf-turtle/spec/</a>
+    </dd><dt id="bib-rdf12-xml">[RDF12-XML]</dt><dd>
+      <a href="https://w3c.github.io/rdf-xml/spec/"><cite>RDF 1.2 XML Syntax</cite></a>. Fabien Gandon; Guus Schreiber.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/rdf-xml/spec/">https://w3c.github.io/rdf-xml/spec/</a>
+    </dd><dt id="bib-rdfa-primer">[RDFA-PRIMER]</dt><dd>
+      <a href="https://www.w3.org/TR/rdfa-primer/"><cite>RDFa 1.1 Primer - Third Edition</cite></a>. Ivan Herman; Ben Adida; Manu Sporny; Mark Birbeck.  W3C. 17 March 2015. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/rdfa-primer/">https://www.w3.org/TR/rdfa-primer/</a>
+    </dd><dt id="bib-sparql12-concepts">[SPARQL12-CONCEPTS]</dt><dd>
+      <a href="https://w3c.github.io/sparql-concepts/spec/"><cite>SPARQL 1.2 Concepts</cite></a>. The W3C RDF-star Working Group.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-concepts/spec/">https://w3c.github.io/sparql-concepts/spec/</a>
+    </dd><dt id="bib-sparql12-entailment">[SPARQL12-ENTAILMENT]</dt><dd>
+      <a href="https://w3c.github.io/sparql-entailment/spec/"><cite>SPARQL 1.2 Entailment Regimes</cite></a>. Birte Glimm; Chimezie Ogbuji.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-entailment/spec/">https://w3c.github.io/sparql-entailment/spec/</a>
+    </dd><dt id="bib-sparql12-federated-query">[SPARQL12-FEDERATED-QUERY]</dt><dd>
+      <a href="https://w3c.github.io/sparql-federated-query/spec/"><cite>SPARQL 1.2 Federated Query</cite></a>. Eric Prud'hommeaux; Carlos Buil Aranda.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-federated-query/spec/">https://w3c.github.io/sparql-federated-query/spec/</a>
+    </dd><dt id="bib-sparql12-graph-store-protocol">[SPARQL12-GRAPH-STORE-PROTOCOL]</dt><dd>
+      <a href="https://w3c.github.io/sparql-graph-store-protocol/spec/"><cite>SPARQL 1.2 Graph Store HTTP Protocol</cite></a>. Chimezie Ogbuji.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-graph-store-protocol/spec/">https://w3c.github.io/sparql-graph-store-protocol/spec/</a>
+    </dd><dt id="bib-sparql12-new">[SPARQL12-NEW]</dt><dd>
+      <a href="https://w3c.github.io/sparql-new/spec/"><cite>What’s New in SPARQL 1.2</cite></a>. The W3C RDF-star Working Group.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-new/spec/">https://w3c.github.io/sparql-new/spec/</a>
+    </dd><dt id="bib-sparql12-protocol">[SPARQL12-PROTOCOL]</dt><dd>
+      <a href="https://w3c.github.io/sparql-protocol/spec/"><cite>SPARQL 1.2 Protocol</cite></a>. Lee Feigenbaum; Gregory Williams; Kendall Clark; Elias Torres.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-protocol/spec/">https://w3c.github.io/sparql-protocol/spec/</a>
+    </dd><dt id="bib-sparql12-query">[SPARQL12-QUERY]</dt><dd>
+      <a href="https://w3c.github.io/sparql-query/spec/"><cite>SPARQL 1.2 Query Language</cite></a>. Steven Harris; Andy Seaborne.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-query/spec/">https://w3c.github.io/sparql-query/spec/</a>
+    </dd><dt id="bib-sparql12-results-csv-tsv">[SPARQL12-RESULTS-CSV-TSV]</dt><dd>
+      <a href="https://w3c.github.io/sparql-results-csv-tsv/spec/"><cite>SPARQL 1.2 Query Results CSV and TSV Formats</cite></a>. Andy Seaborne.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-results-csv-tsv/spec/">https://w3c.github.io/sparql-results-csv-tsv/spec/</a>
+    </dd><dt id="bib-sparql12-results-json">[SPARQL12-RESULTS-JSON]</dt><dd>
+      <a href="https://w3c.github.io/sparql-results-json/spec/"><cite>SPARQL 1.2 Query Results JSON Format</cite></a>. Andy Seaborne.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-results-json/spec/">https://w3c.github.io/sparql-results-json/spec/</a>
+    </dd><dt id="bib-sparql12-results-xml">[SPARQL12-RESULTS-XML]</dt><dd>
+      <a href="https://w3c.github.io/sparql-results-xml/spec/"><cite>SPARQL 1.2 Query Results XML Formats</cite></a>. Sandro Hawke; Dave Beckett; Jeen Broekstra.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-results-xml/spec/">https://w3c.github.io/sparql-results-xml/spec/</a>
+    </dd><dt id="bib-sparql12-service-description">[SPARQL12-SERVICE-DESCRIPTION]</dt><dd>
+      <a href="https://w3c.github.io/sparql-service-description/spec/"><cite>SPARQL 1.2 Service Description</cite></a>. Gregory Williams.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-service-description/spec/">https://w3c.github.io/sparql-service-description/spec/</a>
+    </dd><dt id="bib-sparql12-update">[SPARQL12-UPDATE]</dt><dd>
+      <a href="https://w3c.github.io/sparql-update/spec/"><cite>SPARQL 1.2 Update</cite></a>. Paula Gearon; Alexandre Passant; Axel Polleres.  W3C. W3C Working Draft. URL: <a href="https://w3c.github.io/sparql-update/spec/">https://w3c.github.io/sparql-update/spec/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
