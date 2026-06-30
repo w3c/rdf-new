@@ -108,6 +108,30 @@
 
 <h2>Abstract Syntax</h2>
 
+<p>The most notable addition to the abstract syntax is the addition of
+  <a href="https://w3c.github.io/rdf-concepts/spec/#section-triple-terms-reification"triple terms</a>
+  and how they are used in RDF graphs.</p>
+
+<h3>What Properties Can or Should Link to Triple Terms</h3>
+
+<p>In principle, a triple term can be the object of any triple, but not the subject. The RDF-star WG, after a long
+  discussion (and a vote), decided to prohibit the use of triple terms as subjects. The reason for this is simple:
+  Making “statements about statements” should only be done one way, so that there is no room for users of RDF to think
+  their model represents something when in fact it doesn’t. Reified triple terms (i.e., situations where a triple terms
+  is the object of a triple whose predicate is rdf:reifies) represent the occurrence of either ground or hypothetical
+  triples about which statements are made. No statements can be made about the triple terms themselves, and in this
+  regard they behave much like literals do; a statement about a triple terms would not be a &quot;statement about a
+  statement&quot;, and allowing triple terms as subject could easily lead to modelers making that mistake. The chosen
+  approach also constitutes a &quot;two-way door&quot; decision so that some future working group can, if it sees it
+  necessary and appropriate, allow triple terms as subjects.</p>
+
+<p>Thus, the property that SHOULD link to
+  <a href="https://w3c.github.io/rdf-concepts/spec/#section-triple-terms-reification">triple terms</a> is
+  <code>rdf:reifies</code>; this establishes a resource (the subject of the triple) about which statements are made.
+  In principle, other properties could also be used, but no special, normative meaning is defined for those. Also note
+  that the above says nothing about
+  <a href="https://w3c.github.io/rdf-concepts/spec/#section-generalizations-of-rdf">generalizations of RDF</a>.</p>
+
 <!--section id="identifiers">
 
 <h3>Identifiers</h3>
